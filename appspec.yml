@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user
+permissions:
+  - object: /home/ec2-user/docker-commands.sh
+    owner: ec2-user
+    mode: 4755
+    group: ec2-user
+  - object: /home/ec2-user/pre-install.sh
+    owner: ec2-user
+    group: ec2-user
+    mode: 4755
+hooks:
+  AfterInstall:
+    - location: pre-install.sh
+      timeout: 300
+      runas: ec2-user
+    - location: docker-commands.sh
+      timeout: 300
+      runas: ec2-user
